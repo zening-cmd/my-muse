@@ -19,6 +19,13 @@ It runs on [Sai](https://www.simular.ai) cloud computers through the Sai agents 
 
 ## Getting started
 
+> [!IMPORTANT]
+> **You need a Sai cloud computer and a Sai API key. Get both at [platform.simular.ai](https://platform.simular.ai/).**
+>
+> 1. Sign in at **[platform.simular.ai](https://platform.simular.ai/)** and create a cloud computer in the [Playground](https://platform.simular.ai/playground). It takes one click.
+> 2. Create an API key on the [API keys](https://platform.simular.ai/api-keys) page. It starts with `sapi_`.
+> 3. Paste the key into My Muse under **Settings**.
+
 Requirements: Windows 10/11, Node.js 22+, and a Sai account with at least one computer.
 
 ```powershell
@@ -28,7 +35,7 @@ npm install
 npm start
 ```
 
-On first launch, open **Settings** (≡ at the bottom of the sidebar) and paste a Sai API key from https://platform.simular.ai/api-keys. It's encrypted with Windows secure storage and only the app's background process uses it. For development you can set `SAI_API_KEY` in the environment instead.
+On first launch, open **Settings** (≡ at the bottom of the sidebar) and paste your Sai API key from [platform.simular.ai](https://platform.simular.ai/api-keys). It's encrypted with Windows secure storage and only the app's background process uses it. For development you can set `SAI_API_KEY` in the environment instead.
 
 Each task uses your Sai account, and the cost of each reply is shown under it.
 
