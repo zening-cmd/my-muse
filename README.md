@@ -2,6 +2,10 @@
 
 A personal AI agent app for Windows. You chat with it, and it does the work on its own cloud computer, using your apps and browser, and checks with you before anything important.
 
+<p align="center">
+  <img src="docs/screenshot.png" alt="My Muse on Windows: an icon sidebar, the Muse avatar at the top, a 'Hi, I'm Muse' greeting with suggested tasks, and a message box" width="800">
+</p>
+
 **Built on the Sai API from [platform.simular.ai](https://platform.simular.ai/).** Agents like Meta's Muse work because each one gets its own cloud computer. The Sai API gives developers that whole package in one place:
 
 - **A cloud computer**: a real Windows desktop in the cloud, ready in one click, to build and run your agent on.
