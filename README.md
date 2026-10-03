@@ -2,9 +2,12 @@
 
 A personal AI agent app for Windows. You chat with it, and it does the work on its own cloud computer, using your apps and browser, and checks with you before anything important.
 
-It runs on [Sai](https://www.simular.ai) cloud computers through the Sai agents API. The design takes cues from the personal-agent apps on macOS: a calm chat, permission prompts inside the conversation, and an agent that keeps working after you close the window.
+**Built on the Sai API from [platform.simular.ai](https://platform.simular.ai/).** Agents like Meta's Muse work because each one gets its own cloud computer. The Sai API gives developers that whole package in one place:
 
-> Independent project. Not affiliated with or endorsed by Meta or Simular.
+- **A cloud computer**: a real Windows desktop in the cloud, ready in one click, to build and run your agent on.
+- **Computer use**: an agent that operates that desktop for you. It opens apps, browses, fills in forms and handles files, and asks for approval before risky steps.
+
+This app is an example of what you can build on top of it: a full personal-agent experience in under 2,000 lines of plain JavaScript, HTML and CSS. To build your own, get a cloud computer and an API key at **[platform.simular.ai](https://platform.simular.ai/)**.
 
 ## Features
 
