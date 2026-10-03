@@ -1,0 +1,19 @@
+{
+  "name": "my-muse",
+  "productName": "My Muse",
+  "version": "0.1.0",
+  "description": "A Muse-style personal agent for Windows, powered by Sai cloud computers.",
+  "main": "src/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "check": "node scripts/check-api.mjs",
+    "vendor": "node scripts/vendor.mjs"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0"
+  },
+  "dependencies": {
+    "guacamole-common-js": "^1.5.0"
+  }
+}

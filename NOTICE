@@ -1,0 +1,5 @@
+My Muse includes third-party software:
+
+- guacamole-common-js 1.5.0 (src/renderer/vendor/guacamole-common.js)
+  Copyright The Apache Software Foundation. Licensed under the Apache License, Version 2.0.
+  https://guacamole.apache.org/  https://www.apache.org/licenses/LICENSE-2.0

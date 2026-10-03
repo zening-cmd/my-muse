@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' file: data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' wss: https:" />
+  <title>My Muse</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <nav class="rail" aria-label="Sections">
+      <div class="rail-top"></div>
+      <button class="rail-btn active" data-view="chat" title="Chat" aria-label="Chat">
+        <svg viewBox="0 0 24 24"><path d="M12 4c4.7 0 8.5 3.2 8.5 7.2s-3.8 7.2-8.5 7.2c-1 0-2-.1-2.9-.4L5 20l1-3.6C4.5 15 3.5 13.2 3.5 11.2 3.5 7.2 7.3 4 12 4z"/></svg>
+      </button>
+      <button class="rail-btn" data-view="computer" title="Computer" aria-label="Computer">
+        <svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="12.5" rx="2.5"/><path d="M8 20h8"/></svg>
+      </button>
+      <button class="rail-btn" data-view="ideas" title="Ideas" aria-label="Ideas">
+        <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>
+      </button>
+      <button class="rail-btn" data-view="tasks" title="Tasks" aria-label="Tasks">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.2l2.4 2.4 4.8-5"/></svg>
+      </button>
+      <button class="rail-btn" data-view="routines" title="Routines" aria-label="Routines">
+        <svg viewBox="0 0 24 24"><circle cx="7.5" cy="7.5" r="3"/><path d="M16.5 4.2l3.2 5.5h-6.4z"/><circle cx="7.5" cy="16.5" r="3"/><rect x="13.5" y="13.5" width="6" height="6" rx="1.5"/></svg>
+      </button>
+      <div class="rail-divider"></div>
+      <div id="routine-shortcuts" class="rail-emoji"></div>
+      <div class="rail-spacer"></div>
+      <button class="rail-btn" data-view="settings" title="Settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M5 9.5h14M5 14.5h14"/></svg>
+      </button>
+    </nav>
+
+    <main class="main">
+      <header class="header">
+        <div class="chats-wrap">
+          <button id="chats-pill" class="chats-pill" aria-expanded="false" aria-controls="chats-drawer">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            <span>Chats</span>
+          </button>
+          <button id="new-chat-btn" class="round-btn" title="New chat (Ctrl+N)" aria-label="New chat">
+            <svg viewBox="0 0 24 24"><path d="M12.5 4.5H7a2.5 2.5 0 0 0-2.5 2.5v10A2.5 2.5 0 0 0 7 19.5h10a2.5 2.5 0 0 0 2.5-2.5v-5.5"/><path d="M17.8 3.8a1.9 1.9 0 0 1 2.7 2.7L13 14l-3.5.8.8-3.5z"/></svg>
+          </button>
+        </div>
+        <aside id="chats-drawer" class="drawer" hidden>
+          <div class="drawer-head">
+            <span>Chats</span>
+            <button id="drawer-new" class="btn small primary">New chat</button>
+          </div>
+          <div id="chat-list" class="chat-list"></div>
+        </aside>
+        <div class="persona">
+          <div class="avatar" aria-hidden="true"></div>
+          <div class="persona-name" id="persona-name">Muse</div>
+        </div>
+      </header>
+
+      <section class="view view-chat active" data-view="chat">
+        <div class="scroll" id="scroll">
+          <div class="thread" id="thread"></div>
+        </div>
+        <div class="composer-wrap">
+          <div id="attach-chips" class="attach-chips"></div>
+          <form class="composer" id="composer">
+            <button type="button" class="icon-btn" id="attach-btn" title="Attach files" aria-label="Attach files">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <textarea id="input" rows="1" placeholder="Message" aria-label="Message"></textarea>
+            <button type="button" class="icon-btn" id="mic-btn" title="Voice input is coming soon" aria-label="Voice input">
+              <svg viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21"/></svg>
+            </button>
+            <button type="submit" class="send-btn" id="send-btn" aria-label="Send" hidden>
+              <svg viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></svg>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="view view-panel" data-view="computer">
+        <div class="panel">
+          <h1>Computer</h1>
+          <p class="sub">Your Muse works on its own cloud computer, so your PC stays free. Click one to see its screen live.</p>
+          <div class="screen-card">
+            <div class="screen-head">
+              <span class="live-badge" id="live-badge" hidden>● Live</span>
+              <span id="screen-title" class="screen-title">Screen</span>
+              <span class="screen-sub">View only</span>
+              <button id="screen-reconnect" class="btn small" hidden>Reconnect</button>
+              <button id="screen-full" class="btn small" title="Bigger view">Expand</button>
+            </div>
+            <div class="screen" id="screen"><div class="screen-note" id="screen-note">Select a computer to see its screen.</div></div>
+          </div>
+          <div id="machine-list" class="list"></div>
+        </div>
+      </section>
+
+      <section class="view view-panel" data-view="ideas">
+        <div class="panel">
+          <h1>Ideas</h1>
+          <p class="sub">Things your Muse can take off your plate. Tap one to start.</p>
+          <div id="idea-list" class="cards"></div>
+        </div>
+      </section>
+
+      <section class="view view-panel" data-view="tasks">
+        <div class="panel">
+          <h1>Tasks</h1>
+          <p class="sub">Everything you've handed off, newest first.</p>
+          <div id="task-list" class="list"></div>
+        </div>
+      </section>
+
+      <section class="view view-panel" data-view="routines">
+        <div class="panel">
+          <h1>Routines</h1>
+          <p class="sub">One-tap tasks you run again and again. They also sit in the sidebar.</p>
+          <div id="routine-list" class="cards"></div>
+        </div>
+      </section>
+
+      <section class="view view-panel" data-view="settings">
+        <div class="panel">
+          <h1>Settings</h1>
+          <form id="settings-form" class="settings">
+            <label>Name your Muse
+              <input id="set-name" maxlength="24" autocomplete="off" />
+            </label>
+            <label>Sai API key
+              <input id="set-key" type="password" autocomplete="off" placeholder="sapi_…" />
+              <small id="key-status"></small>
+            </label>
+            <label class="check">
+              <input id="set-drive" type="checkbox" />
+              <span><b>Copy files to Google Drive</b><br><small>Screenshots and documents your Muse creates are uploaded to a “My Muse” folder in your Drive, so you can open them here. Sai can't send files to this app directly yet.</small></span>
+            </label>
+            <div class="row">
+              <button type="submit" class="btn primary">Save</button>
+              <span id="settings-msg" class="muted"></span>
+            </div>
+          </form>
+          <p class="sub small">Get a key at <a href="https://platform.simular.ai/api-keys" class="ext">platform.simular.ai/api-keys</a>. It's stored encrypted with Windows secure storage and never leaves the app's background process.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="vendor/guacamole-common.js"></script>
+  <script src="markdown.js"></script>
+  <script src="screen.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

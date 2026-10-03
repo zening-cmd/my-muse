@@ -1,0 +1,60 @@
+# My Muse
+
+A personal AI agent app for Windows. You chat with it, and it does the work on its own cloud computer, using your apps and browser, and checks with you before anything important.
+
+It runs on [Sai](https://www.simular.ai) cloud computers through the Sai agents API. The design takes cues from the personal-agent apps on macOS: a calm chat, permission prompts inside the conversation, and an agent that keeps working after you close the window.
+
+> Independent project. Not affiliated with or endorsed by Meta or Simular.
+
+## Features
+
+- **Chat to hand off tasks.** Progress shows while the agent works, and replies render with formatting.
+- **Approvals in the conversation.** Allow, Always allow (for this task) or Deny, with a summary of what the agent wants to do.
+- **Multiple chats.** Make new ones, switch between them and delete them. When you return to an older chat, the agent gets a short recap of it.
+- **Live screen.** Watch any of your Sai computers' desktops in the app (view only).
+- **Keeps running in the background.** Closing the window keeps tasks running from the tray, with Windows notifications when a task needs you, finishes or fails. Tasks still running when you quit are picked up again on the next launch.
+- **Files.** Attach files to a task. Files the agent creates can be copied to a "My Muse" folder in your Google Drive and opened from the chat.
+- **Ideas and routines.** One-tap starting points that fill in the message box so you can edit before sending.
+- **Make it yours.** Rename your Muse in Settings.
+
+## Getting started
+
+Requirements: Windows 10/11, Node.js 22+, and a Sai account with at least one computer.
+
+```powershell
+git clone https://github.com/zening-cmd/my-muse.git
+cd my-muse
+npm install
+npm start
+```
+
+On first launch, open **Settings** (≡ at the bottom of the sidebar) and paste a Sai API key from https://platform.simular.ai/api-keys. It's encrypted with Windows secure storage and only the app's background process uses it. For development you can set `SAI_API_KEY` in the environment instead.
+
+Each task uses your Sai account, and the cost of each reply is shown under it.
+
+## How it works
+
+```
+renderer (UI) ──IPC──▶ main process ──HTTPS──▶ api.simular.ai/v1/agents/*
+                         │  owns the API key            message, events (long-poll),
+                         │  polls task updates          approve, abort, upload,
+                         │  notifications, tray          machines, machines/:id/live
+                         └─ %APPDATA%\My Muse\store.json (chats, tasks, settings)
+```
+
+- `src/sai-api.js`: Sai agents API client
+- `src/main.js`: window, tray, notifications, task polling (rate-limit aware), local store
+- `src/preload.js`: the only bridge the UI gets
+- `src/renderer/`: plain HTML/CSS/JS UI; `screen.js` is the live view built on the Guacamole client
+- `scripts/check-api.mjs`: read-only API check (`npm run check`)
+- `scripts/vendor.mjs`: rebuilds `src/renderer/vendor/guacamole-common.js` from npm (`npm run vendor`)
+
+## Known limits
+
+- The live screen is view only; the API doesn't offer control yet, so CAPTCHAs and sign-in pop-ups have to be handled by the agent or in Sai.
+- The API can't download the agent's files (`sai://file/...`) yet, so the app uses the Google Drive copy instead.
+- Voice input isn't built yet.
+
+## License
+
+MIT. See [LICENSE](LICENSE). Bundled third-party code is listed in [NOTICE](NOTICE).
